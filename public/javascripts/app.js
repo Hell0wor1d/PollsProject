@@ -2,7 +2,7 @@
  * Created by kev7n on 14-5-18.
  */
 // Angular module, defining routes for the app
-angular.module('polls', ['pollServices']).
+angular.module('polls', ['pollServices','ngRoute']).
     config(function ($routeProvider) {
         $routeProvider
             .when('/polls', {

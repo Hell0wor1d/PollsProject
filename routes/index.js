@@ -67,6 +67,7 @@ router.get('/polls/:id', function (req, res) {
         }
     });
 });
+
 router.post('/polls', function (req, res) {
     var reqBody = req.body,
     // Filter out choices with empty text
@@ -89,7 +90,7 @@ router.post('/polls', function (req, res) {
     });
 });
 
-exports.vote = function (socket) {
+router.processSocket = function (socket){
     socket.on('send:vote', function (data) {
         var ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address.address;
 
@@ -127,6 +128,6 @@ exports.vote = function (socket) {
     });
 };
 
-router.post('/vote', exports.vote);
+router.post('/vote', router.processSocket);
 
 module.exports = router;

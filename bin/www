@@ -4,10 +4,16 @@ var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-  var io = require('socket.io').listen(server);
-  io.sockets.on('connection',function(socket){
-
-  });
+var server = app.listen(app.get('port'), function () {
+    debug('Express server listening on port ' + server.address().port);
 });
+
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function(socket){
+    debug('sockets connection');
+    var routes = require('../routes/index');
+    routes.processSocket(socket);
+});
+
+
+
