@@ -7,7 +7,7 @@ function PollListCtrl($scope, Poll) {
 }
 
 // Controller for an individual poll
-function PollItemCtrl($scope, $routeParams, socket, Poll) {
+function PollItemCtrl($scope, $location, $routeParams, socket, Poll) {
     $scope.poll = Poll.get({pollId: $routeParams.pollId});
 
     socket.on('myvote', function (data) {
@@ -33,9 +33,20 @@ function PollItemCtrl($scope, $routeParams, socket, Poll) {
             var voteObj = { poll_id: pollId, choice: choiceId };
             socket.emit('send:vote', voteObj);
         } else {
-            alert('You must select an option to vote for');
+            alert('请选择一个投票选项。');
         }
     };
+
+    $scope.deleteVote = function () {
+        if (confirm('确定删除该投票?')) {
+            Poll.remove({pollId: $scope.poll._id}, function (result) {
+                if (result.ok) {
+                    $location.path("/polls");
+                    //$scope.$apply(function() { $location.path("/polls"); });
+                }
+            });
+        }
+    }
 }
 
 // Controller for creating a new poll
@@ -82,14 +93,14 @@ function PollNewCtrl($scope, $location, Poll) {
                         // If there is no error, redirect to the main view
                         $location.path('polls');
                     } else {
-                        alert('Could not create poll');
+                        alert('创建投票失败。');
                     }
                 });
             } else {
-                alert('You must enter at least two choices');
+                alert('至少填入两个选项。');
             }
         } else {
-            alert('You must enter a question');
+            alert('请填入投票问题。');
         }
     };
 }

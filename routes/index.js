@@ -130,4 +130,14 @@ router.processSocket = function (socket){
 
 router.post('/vote', router.processSocket);
 
+router.delete('/polls/:id', function (req, res) {
+    var pollId = req.params.id;
+
+    Poll.findByIdAndRemove(pollId, {}, function (err, obj) {
+
+        res.json({ok: true});
+    });
+
+});
+
 module.exports = router;

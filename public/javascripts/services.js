@@ -6,7 +6,8 @@
 angular.module('pollServices', ['ngResource'])
     .factory('Poll', function ($resource) {
         return $resource('polls/:pollId', {}, {
-            query: { method: 'GET', params: { pollId: 'polls' }, isArray: true }
+            query: { method: 'GET', params: { pollId: 'polls' }, isArray: true },
+            remove: { method: "DELETE", params: { pollId: '@pollId' }}
         })
     })
     .factory('socket', function ($rootScope) {

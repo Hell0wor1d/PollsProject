@@ -3,16 +3,23 @@ html(ng-app='polls')
     head
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width,initial-scale=1, user-scalable=no')
-        title= Polls
-        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css')
+        block stylesheet
+        link(rel='stylesheet', href='/javascripts/libs/bootstrap/3.0.3/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
-        script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js')
-        script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js')
-        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
-        script(src='//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js')
+        script(src='/javascripts/libs/angularjs/1.2.16/angular.min.js')
+        script(src='/javascripts/libs/angularjs/1.2.16/angular-resource.min.js')
+        script(src='/javascripts/libs/angularjs/1.2.16/angular-route.min.js')
+        script(src='/javascripts/libs/jquery/2.0.0/jquery.min.js')
+        script(src='/javascripts/libs/bootstrap/3.0.3/bootstrap.min.js')
         script(src='/socket.io/socket.io.js')
         script(src='/javascripts/app.js')
         script(src='/javascripts/services.js')
         script(src='/javascripts/controllers.js')
+        block script
+        //title.=投票系统
     body(ng-controller='PollListCtrl')
-        block content
+        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+            div.navbar-header
+                a.navbar-brand(href='#/polls') Kev7n's Poll Website
+        div.container
+            block content
